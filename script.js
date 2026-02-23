@@ -4,6 +4,40 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     
+  // --- TICKER 2: BACKGROUND SLIDER LOGIC ---
+    const t2Images = document.querySelectorAll('.ticker2-images img');
+    const t2Prev = document.getElementById('t2PrevBtn');
+    const t2Next = document.getElementById('t2NextBtn');
+    let t2Index = 0;
+
+    if (t2Images.length > 0 && t2Prev && t2Next) {
+        
+        const changeImage = (newIndex) => {
+            // Remove active from current
+            t2Images[t2Index].classList.remove('active');
+            // Update index
+            t2Index = newIndex;
+            // Add active to new
+            t2Images[t2Index].classList.add('active');
+        };
+
+        // Manual Navigation
+        t2Next.addEventListener('click', () => {
+            let next = (t2Index + 1) % t2Images.length;
+            changeImage(next);
+        });
+
+        t2Prev.addEventListener('click', () => {
+            let prev = (t2Index - 1 + t2Images.length) % t2Images.length;
+            changeImage(prev);
+        });
+
+        // Auto-Play: Changes background every 5 seconds
+        setInterval(() => {
+            let next = (t2Index + 1) % t2Images.length;
+            changeImage(next);
+        }, 5000);
+    }
     // --- 1. BEER BUBBLES ANIMATION ---
     createBubbles();
 
@@ -26,38 +60,68 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 3. HOME PAGE TICKER ---
-    const images = document.querySelectorAll('.ticker-images img');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    let currentIndex = 0;
+// --- 3. HOME PAGE TICKER (With Swipe Support) ---
+const tickerItems = document.querySelectorAll('.ticker-item');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+let currentIndex = 0;
 
-    if (images.length > 0 && prevBtn && nextBtn) {
-        const updateArrows = () => {
-            prevBtn.classList.toggle('hidden', currentIndex === 0);
-            nextBtn.classList.toggle('hidden', currentIndex === images.length - 1);
-        };
+// Variables to track touch position
+let touchStartX = 0;
+let touchEndX = 0;
 
-        nextBtn.addEventListener('click', () => {
-            if (currentIndex < images.length - 1) {
-                images[currentIndex].classList.remove('active');
-                currentIndex++;
-                images[currentIndex].classList.add('active');
-                updateArrows();
-            }
-        });
+if (tickerItems.length > 0 && prevBtn && nextBtn) {
+    const updateArrows = () => {
+        prevBtn.classList.toggle('hidden', currentIndex === 0);
+        nextBtn.classList.toggle('hidden', currentIndex === tickerItems.length - 1);
+    };
 
-        prevBtn.addEventListener('click', () => {
-            if (currentIndex > 0) {
-                images[currentIndex].classList.remove('active');
-                currentIndex--;
-                images[currentIndex].classList.add('active');
-                updateArrows();
-            }
-        });
-        
-        updateArrows();
-    }
+    const nextSlide = () => {
+        if (currentIndex < tickerItems.length - 1) {
+            tickerItems[currentIndex].classList.remove('active');
+            currentIndex++;
+            tickerItems[currentIndex].classList.add('active');
+            updateArrows();
+        }
+    };
+
+    const prevSlide = () => {
+        if (currentIndex > 0) {
+            tickerItems[currentIndex].classList.remove('active');
+            currentIndex--;
+            tickerItems[currentIndex].classList.add('active');
+            updateArrows();
+        }
+    };
+
+    // Button Listeners
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+
+    // --- SWIPE LOGIC ---
+    const tickerContainer = document.querySelector('.ticker-container');
+
+    tickerContainer.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    tickerContainer.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, { passive: true });
+
+    const handleSwipe = () => {
+        const swipeThreshold = 50; // Minimum distance to trigger swipe
+        if (touchEndX < touchStartX - swipeThreshold) {
+            nextSlide(); // Swiped left
+        }
+        if (touchEndX > touchStartX + swipeThreshold) {
+            prevSlide(); // Swiped right
+        }
+    };
+    
+    updateArrows();
+}
 
     // --- 4. MENU PAGE ACCORDION (Enhanced Class Toggle) ---
     const menuHeaders = document.querySelectorAll('.category-header');
