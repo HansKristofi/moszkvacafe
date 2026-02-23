@@ -60,69 +60,71 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-// --- 3. HOME PAGE TICKER (With Swipe Support) ---
+// --- 3. HOME PAGE TICKER (With Swipe & Dots) ---
 const tickerItems = document.querySelectorAll('.ticker-item');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
+const dotsContainer = document.getElementById('tickerDots');
 let currentIndex = 0;
 
-// Variables to track touch position
-let touchStartX = 0;
-let touchEndX = 0;
+if (tickerItems.length > 0) {
+    // Create Dots dynamically
+    tickerItems.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(index));
+        dotsContainer.appendChild(dot);
+    });
 
-if (tickerItems.length > 0 && prevBtn && nextBtn) {
-    const updateArrows = () => {
-        prevBtn.classList.toggle('hidden', currentIndex === 0);
-        nextBtn.classList.toggle('hidden', currentIndex === tickerItems.length - 1);
+    const dots = document.querySelectorAll('.dot');
+
+    const updateUI = () => {
+        // Update Arrows (for Desktop)
+        if(prevBtn && nextBtn) {
+            prevBtn.classList.toggle('hidden', currentIndex === 0);
+            nextBtn.classList.toggle('hidden', currentIndex === tickerItems.length - 1);
+        }
+        // Update Dots
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
+        });
     };
 
-    const nextSlide = () => {
-        if (currentIndex < tickerItems.length - 1) {
-            tickerItems[currentIndex].classList.remove('active');
-            currentIndex++;
-            tickerItems[currentIndex].classList.add('active');
-            updateArrows();
-        }
-    };
-
-    const prevSlide = () => {
-        if (currentIndex > 0) {
-            tickerItems[currentIndex].classList.remove('active');
-            currentIndex--;
-            tickerItems[currentIndex].classList.add('active');
-            updateArrows();
-        }
+    const goToSlide = (index) => {
+        tickerItems[currentIndex].classList.remove('active');
+        currentIndex = index;
+        tickerItems[currentIndex].classList.add('active');
+        updateUI();
     };
 
     // Button Listeners
-    nextBtn.addEventListener('click', nextSlide);
-    prevBtn.addEventListener('click', prevSlide);
+    if(nextBtn) nextBtn.addEventListener('click', () => {
+        if (currentIndex < tickerItems.length - 1) goToSlide(currentIndex + 1);
+    });
+    if(prevBtn) prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) goToSlide(currentIndex - 1);
+    });
 
     // --- SWIPE LOGIC ---
-    const tickerContainer = document.querySelector('.ticker-container');
+    let touchStartX = 0;
+    let touchEndX = 0;
 
-    tickerContainer.addEventListener('touchstart', (e) => {
+    const tickerImages = document.querySelector('.ticker-images');
+    tickerImages.addEventListener('touchstart', e => {
         touchStartX = e.changedTouches[0].screenX;
     }, { passive: true });
 
-    tickerContainer.addEventListener('touchend', (e) => {
+    tickerImages.addEventListener('touchend', e => {
         touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
+        const threshold = 50;
+        if (touchEndX < touchStartX - threshold && currentIndex < tickerItems.length - 1) {
+            goToSlide(currentIndex + 1); // Swipe Left
+        } else if (touchEndX > touchStartX + threshold && currentIndex > 0) {
+            goToSlide(currentIndex - 1); // Swipe Right
+        }
     }, { passive: true });
-
-    const handleSwipe = () => {
-        const swipeThreshold = 50; // Minimum distance to trigger swipe
-        if (touchEndX < touchStartX - swipeThreshold) {
-            nextSlide(); // Swiped left
-        }
-        if (touchEndX > touchStartX + swipeThreshold) {
-            prevSlide(); // Swiped right
-        }
-    };
-    
-    updateArrows();
 }
-
     // --- 4. MENU PAGE ACCORDION (Enhanced Class Toggle) ---
     const menuHeaders = document.querySelectorAll('.category-header');
     
@@ -164,7 +166,8 @@ function createBubbles() {
         bubble.style.left = Math.random() * 100 + '%';
         
         // Duration between 3s and 8s
-        bubble.style.setProperty('--duration', (Math.random() * 5 + 3) + 's');
+        // Duration between 1s and 4s
+        bubble.style.setProperty('--duration', (Math.random() * 3 + 1) + 's');
         bubble.style.animationDelay = (Math.random() * 5) + 's';
         
         container.appendChild(bubble);
