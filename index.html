@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Moszkva Café - Home</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav>
+    <a href="index.html">
+        <img src="sarga2.gif" alt="Moszkva logo" class="logo">
+    </a>
+    
+    <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="events.html">Events</a></li>
+    </ul>
+</nav>
+
+<main>
+    <div class="hero">
+        <video src="video2_body.mp4" autoplay muted loop aria-label="Moszkva Cafe Video"></video>
+    </div>
+
+    <section class="description">
+        <p>MOSZKVA CAFÉ IS AN INDEPENDENT MULTICULTURAL AND ENTERTAINMENT CENTER IN ORADEA CITY</p>
+    </section>
+
+    <section class="ticker">
+        <h2>Promotions</h2>
+        <div class="ticker-container">
+            <button class="ticker-arrow hidden" id="prevBtn">❮</button>
+            <div class="ticker-images">
+                <img src="1.webp" alt="Promo 1" class="active">
+                <img src="2.webp" alt="Promo 2">
+                <img src="3.webp" alt="Promo 3">
+                <img src="4.webp" alt="Promo 4">
+                <img src="5.webp" alt="Promo 5">
+                <img src="7.webp" alt="Promo 7">
+                <img src="9.webp" alt="Promo 9">
+            </div>
+            <button class="ticker-arrow" id="nextBtn">❯</button>
+        </div>
+    </section>
+
+    <section class="map-section">
+        <h2>Find Us</h2>
+        <p>str. Moscovei 12, Oradea, Romania</p>
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2713.8441444743243!2d21.9288164769064!3d47.0629479253755!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x474647e30737f763%3A0x600b468a3517172!2sStrada%20Moscovei%2012%2C%20Oradea!5e0!3m2!1sen!2sro!4v1700000000000!5m2!1sen!2sro" 
+            width="100%" 
+            height="400" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy">
+        </iframe>
+    </section>
+
+    <footer>
+    <div class="footer-container">
+        <div class="footer-section">
+            <img src="sarga2.gif" alt="Moszkva Logo" class="footer-logo">
+        </div>
+
+        <div class="footer-section">
+            <h3>Opening Hours</h3>
+            <p>Mon - Thu: 3:00 PM - 2:00 AM</p>
+            <p>Fri - Sun: 3:00 PM - 2:00 AM</p>
+        </div>
+
+        <div class="footer-section">
+            <h3>Follow Us</h3>
+            <div class="social-links">
+                <a href="https://www.facebook.com/MoszkvaCafe"><img src="facebook.png" alt="facebook"></a>
+                <a href="https://www.instagram.com/moszkvacafe/"><img src="instagram.png" alt="instagram"></a>
+            </div>
+            <p>Strada Moscovei 12, Oradea</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 Moszkva Cafe. All rights reserved.</p>
+    </div>
+</footer>
+</main>
+
+<script src="script.js"></script>
+<div class="beer-bubbles" id="bubble-container"></div>
+</body>
+</html>

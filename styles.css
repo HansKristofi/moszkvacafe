@@ -1,0 +1,536 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+/* --- 1. GLOBAL RESET & BASE STYLES --- */
+* { box-sizing: border-box; }
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #000000;
+    padding-top: 80px; /* Space for the fixed nav */
+}
+
+main {
+    flex: 1; /* Pushes footer to bottom */
+}
+
+/* --- 2. NAVIGATION BAR --- */
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    height: 80px;
+    background: linear-gradient(135deg, #8B1F18 0%, #4A0F0A 100%);
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+}
+
+.logo { 
+    height: 50px; 
+    display: block;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #ccc;
+}
+
+/* --- 3. HAMBURGER ICON --- */
+.hamburger {
+    display: none; /* Hidden on desktop */
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+    z-index: 1001;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+/* --- 4. HERO VIDEO SECTION --- */
+.hero {
+    position: relative;
+    width: 100%;
+    background: #000;
+    line-height: 0; 
+    
+    /* Add these three lines to center the content */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero video {
+    display: block;
+    width: auto;      /* Video keeps its natural aspect ratio */
+    max-width: 100%;  /* Prevents the video from overflowing on small screens */
+    height: 500px; 
+    object-fit: cover; 
+}
+
+/* Mobile Adjustment */
+@media (max-width: 768px) {
+    .hero video {
+        height: 300px; /* Keeps it proportional on phones */
+    }
+}
+
+.description { padding: 40px; background: #000; color: #959595; font-weight: bold; }
+
+/* --- 5. PROMO TICKER --- */
+.ticker { background: linear-gradient(135deg, #8B1F18 0%, #4A0F0A 100%); padding: 40px 0; }
+.ticker h2 { 
+    font-family: 'Bebas Neue', sans-serif; 
+    font-size: 4rem; 
+    color: white; 
+    margin-bottom: 20px;
+}
+.ticker-container { display: flex; align-items: center; justify-content: center; position: relative; }
+.ticker-images img { height: 400px; display: none; border-radius: 8px; }
+.ticker-images img.active { display: block; animation: fadeIn 0.5s; }
+
+.ticker-arrow {
+    background: rgba(0,0,0,0.5);
+    color: white; border: none; padding: 15px;
+    cursor: pointer; font-size: 2rem; position: absolute; z-index: 10;
+}
+#prevBtn { left: 10%; }
+#nextBtn { right: 10%; }
+
+/* --- Menu Specific Layout --- */
+.menu-container {
+    color: #fff;
+    padding: 20px;
+    /* 1. This is the main limit. Make it 1200px or 95% for 'very wide' */
+    max-width: 1200px; 
+    width: 95%;       
+    margin: 0 auto;
+    display: block;   /* Ensures it doesn't behave like a flex-item */
+}
+
+.category {
+    margin-bottom: 15px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    /* 2. Force the card to take up all space in the container */
+    width: 100%; 
+    overflow: hidden;
+}
+
+.category-header {
+    background: linear-gradient(135deg, #8B1F18 0%, #4A0F0A 100%);
+    color: #fff;
+    padding: 18px 25px; /* Slightly taller for a more 'premium' look */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 1.3rem;
+    width: 100%; /* Force header to full width */
+}
+
+/* Hide by default */
+.category-content {
+    max-height: 0;           /* Part of a smooth transition */
+    overflow: hidden;        /* Keeps content hidden */
+    display: none;           /* The hard hide */
+    padding: 0 40px;         /* Remove vertical padding when closed */
+    color: #fff;
+    background-color: #000000;
+    width: 100%;
+}
+
+/* Show when the parent category has the .open class */
+.category.open .category-content {
+    display: block;
+    max-height: none; 
+    padding: 20px 40px;      /* Restore padding when open */
+}
+.category-header span {
+    display: inline-flex;  /* Turns the span into a flex container */
+    align-items: center;   /* Perfectly centers the image and text vertically */
+    gap: 12px;             /* Modern way to add space between icon and text */
+}
+
+.category-header span img {
+    height: 80px;          /* Adjusted height for a logo look */
+    width: auto;
+    display: block;        /* Removes the default 'inline' bottom gap */
+}
+.subcategory {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    color: #8B1F18; /* Your brand red */
+    font-size: 1.6rem; /* Slightly larger for emphasis */
+    font-weight: bold; /* Makes it bold */
+    text-align: left; /* Aligns to the left */
+    margin: 20px 0 10px 0;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #8B1F18;
+    width: 100%;
+    display: block; /* Ensures it takes up the full line */
+}
+.item { display: flex; justify-content: space-between; padding: 8px 0; font-size: 1rem; }
+.item span:last-child { font-family: 'Montserrat', sans-serif; font-weight: bold; }
+
+/* --- 7. GALLERY & EVENTS GRIDS --- */
+.section-subtitle {
+    font-family: 'Montserrat';
+    font-size: 2rem;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 30px;
+}
+.gallery-intro {
+    font-family: 'Montserrat';
+    font-size: 2rem;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 30px;
+}
+.gallery-container, .events-container { padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
+.events-grid, .photo-albums {
+    display: grid;
+    /* Your existing columns code */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    
+    /* FIX: This prevents neighbors from stretching */
+    align-items: start; 
+}
+.album-card, .event-card {
+    background: linear-gradient(135deg, #8B1F18 0%, #4A0F0A 100%); border-radius: 12px; overflow: hidden;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1); transition: transform 0.3s ease;
+}
+.album-card:hover, .event-card:hover { transform: translateY(-10px); }
+.album-image, .event-banner { position: relative; height: 250px; overflow: hidden; }
+.album-image img, .event-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Shows the whole image */
+    background-color: #1a1a1a; /* Adds a dark background for the "bars" */
+}
+/* --- Gallery Album Title Color --- */
+.album-card h2,.event-summary h2 {
+    color: #ffffff; /* Change this to your preferred hex code */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin: 10px 0;
+    padding: 0 15px; /* Adds a little breathing room on the sides */
+}
+
+.event-summary p {
+    color: #ffffff; /* Change this to your preferred hex code */
+    font-family: 'Montserrat', sans-serif;
+    margin: 10px 0;
+    padding: 0 15px; /* Adds a little breathing room on the sides */
+}
+
+/* If your title is inside an overlay (on top of the image) */
+.album-overlay h2 {
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7); /* Makes white text readable on light photos */
+}
+
+.album-card p{
+    color: #ffffff; /* Change this to your preferred hex code */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin: 10px 0;
+    padding: 0 15px; /* Adds a little breathing room on the sides */
+}
+
+/* --- 8. LIGHTBOX --- */
+.lightbox {
+    display: none; position: fixed; z-index: 2000;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); cursor: zoom-out; padding: 40px;
+}
+.lightbox img { max-width: 90%; max-height: 90%; margin: auto; position: relative; top: 50%; transform: translateY(-50%); border: 3px solid #fff; border-radius: 4px;}
+
+/* --- 7a. HIDDEN CONTENT LOGIC (Gallery & Events) --- */
+
+/* Hide the photo grid and event details by default */
+.photo-grid, .event-expanded-content {
+    display: none; 
+    padding: 20px;
+    background-color: #000000;
+}
+
+/* Show them ONLY when the card has the .active class */
+.album-card.active .photo-grid,
+.event-card.active .event-expanded-content {
+    display: grid; /* For gallery thumbnails */
+}
+
+.event-card.active .event-expanded-content {
+    display: block; /* For event text/posters */
+}
+
+.details-text {
+    color: #ffffff; /* Change this to your preferred hex code */
+    font-family: 'Montserrat', sans-serif;
+    margin: 10px 0;
+    padding: 0 15px; /* Adds a little breathing room on the sides */
+}
+/* Keep gallery thumbnails small and uniform */
+.photo-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+    background-color: #000000;
+}
+
+.photo-grid img {
+    width: 100%;
+    height: 120px; /* Forces thumbnails to be small squares */
+    object-fit: cover;
+    cursor: zoom-in;
+}
+.fb-rsvp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px; /* Space between icon and text */
+    background-color: #1877F2; /* Official Facebook Blue */
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    border-radius: 6px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    transition: background 0.3s ease, transform 0.2s ease;
+    margin-top: 15px;
+}
+
+.fb-rsvp-btn:hover {
+    background-color: #145dbf;
+    transform: scale(1.03); /* Subtle "pop" on hover */
+}
+
+.fb-rsvp-btn i {
+    font-size: 1.2rem; /* Makes the icon slightly larger than the text */
+}
+
+/* --- 9. MOBILE RESPONSIVE (Max 768px) --- */
+@media (max-width: 768px) {
+    /* 1. Reset Nav to allow height expansion */
+    nav { 
+        padding: 0 20px; 
+        height: auto;           /* Let it grow with content */
+        min-height: 80px;       /* Keep the original size when closed */
+        flex-wrap: wrap;        /* Allow links to wrap to a new line */
+        transition: all 0.4s ease;
+    }
+    
+    .hamburger { display: flex; } /* Show Hamburger */
+
+    /* 2. Modify .nav-links to push content instead of floating */
+    .nav-links {
+        display: none;          /* Hidden by default */
+        width: 100%;            /* Force it to a new line */
+        flex-direction: column;
+        
+        /* Positioning: Remove 'fixed' so it stays in the document flow */
+        position: static;       
+        
+        /* Styling */
+        background: transparent; /* Seamless with the nav bar */
+        padding: 20px 0;
+        gap: 15px;
+        order: 3;               /* Moves links below logo/hamburger */
+        
+        /* Animation */
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: all 0.4s ease;
+    }
+
+    /* 3. The "Enlarge" Effect - Active State */
+    .nav-links.active {
+        display: flex;          /* This is what pushes the page down */
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Keep logo and hamburger on the top row */
+    .logo { order: 1; }
+    .hamburger { order: 2; }
+
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links a {
+        font-size: 1.2rem;
+        display: block;
+        padding: 12px 0;
+    }
+
+    /* Hamburger to 'X' animation */
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -7px); }
+
+    /* Other Mobile Tweaks */
+    .hero video { height: 300px; }
+    .ticker h2 { font-size: 2.5rem; }
+    .ticker-images img { height: 250px; }
+    .photo-albums, .events-grid { grid-template-columns: 1fr; }
+}
+/* --- The Bubble Container --- */
+.beer-bubbles {
+    position: fixed; /* Stays in place when you scroll */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: transparent !important; /* Forces background to be clear */
+    pointer-events: none; /* Allows you to click things "through" the bubbles */
+    z-index: -1; /* Puts it behind everything else */
+    overflow: hidden;
+}
+
+/* --- The Individual Bubbles --- */
+.bubble {
+    position: absolute;
+    bottom: -20px; /* Start just below the screen */
+    background-color: rgba(255, 204, 0, 0.4); /* Golden/Amber color */
+    border-radius: 50%;
+    box-shadow: inset -2px -2px 4px rgba(255, 255, 255, 0.3); /* Gives them a 3D look */
+    animation: float-up var(--duration) ease-in infinite;
+}
+
+@keyframes float-up {
+    0% { transform: translateY(0); opacity: 0; }
+    20% { opacity: 0.6; }
+    100% { transform: translateY(-110vh); opacity: 0; }
+}
+
+/* --- 10. MAP & FOOTER --- */
+.map-section { padding: 40px 20px; background: #000; color: #fff; }
+.map-section iframe { width: 100%; max-width: 800px; border-radius: 10px; }
+footer {
+    background: #111; /* Slightly lighter than the body black */
+    color: #fff;
+    padding: 60px 20px 20px 20px;
+    border-top: 3px solid #8B1F18; /* The brand red line at the top */
+    position: relative;
+    z-index: 10; /* Keeps it above the bubbles */
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+    text-align: left;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-section h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #8B1F18; /* Red section headers */
+    margin-bottom: 20px;
+}
+
+.footer-section p {
+    color: #959595;
+    line-height: 1.6;
+    font-size: 0.9rem;
+}
+
+.footer-logo {
+    height: 120px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    filter: grayscale(100%) brightness(200%); /* Makes the logo pop against black */
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.social-links a {
+    text-decoration: none;
+    font-weight: 900;
+    padding: 8px 8px;
+    transition: all 0.3s ease;
+}
+
+.social-links a img {
+    width: 50px;  /* Control the size of the logo here */
+    height: 50px;
+    object-fit: contain; /* Prevents the logo from stretching */
+}
+
+/* Hover Effects */
+.social-links a:hover {
+    transform: translateY(-5px);
+}
+
+.footer-bottom {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid #222;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #555;
+}
+
+/* Mobile Fix */
+@media (max-width: 768px) {
+    .footer-container {
+        text-align: center;
+    }
+    .social-links {
+        justify-content: center;
+    }
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }

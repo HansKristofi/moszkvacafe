@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - Moszkva Cafe</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav>
+    <a href="index.html">
+        <img src="sarga2.gif" alt="Moszkva logo" class="logo">
+    </a>
+    
+    <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="events.html">Events</a></li>
+    </ul>
+</nav>
+    <main class="events-container">
+        <h1>Upcoming Events</h1>
+        <p class="section-subtitle">Click an event to see full details and posters.</p>
+
+        <section class="events-grid">
+            <div class="event-card" onclick="toggleEvent(this)">
+                <div class="event-banner">
+                    <img src="637411017_1346128134227823_4531360866440460884_n.jpg" alt="Concert Cover">
+                    <div class="date-badge">15 <br> MAR</div>
+                    <div class="event-overlay"><span>Details</span></div>
+                </div>
+                <div class="event-summary">
+                    <h2>Live Music: Jazz Collective</h2>
+                    <p>A night of improvised soul and smooth rhythms.</p>
+                </div>
+                
+                <div class="event-expanded-content">
+                    <div class="details-text">
+                        <p>Join us for a special evening with the Oradea Jazz Collective. We'll be serving special wine deals throughout the night.</p>
+                        <ul>
+                            <li><strong>Entry:</strong> 30 Lei</li>
+                            <li><strong>Doors:</strong> 19:00</li>
+                            <li><strong>Table Booking:</strong> Recommended</li>
+                        </ul>
+                        <a href="https://www.facebook.com/events/908826988222684?post_id=909588514813198&acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22search%22%7D%2C%7B%22mechanism%22%3A%22attachment_media%22%2C%22surface%22%3A%22newsfeed%22%7D]%2C%22ref_notif_type%22%3Anull%7D" target="_blank" class="fb-rsvp-btn">
+        <i class="fa-brands fa-facebook"></i> CHECK FB EVENT
+    </a>
+                    </div>
+            
+                </div>
+            </div>
+
+            <div class="event-card" onclick="toggleEvent(this)">
+                <div class="event-banner">
+                    <img src="627989458_1339695494871087_4068739245273036296_n.jpg" alt="Trivia Cover">
+                    <div class="date-badge">22 <br> MAR</div>
+                    <div class="event-overlay"><span>Details</span></div>
+                </div>
+                <div class="event-summary">
+                    <h2>The Big Pub Quiz</h2>
+                    <p>Test your brain, win a round for the table.</p>
+                </div>
+                
+                <div class="event-expanded-content">
+                    <div class="details-text">
+                        <p>Our famous weekly quiz is back! Categories include History, Music, and local Moszkva trivia.</p>
+                        <ul>
+                            <li><strong>Team Size:</strong> Max 5 people</li>
+                            <li><strong>Prizes:</strong> Bottle of Jagermeister for 1st place</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Moszkva Cafe. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <div class="beer-bubbles" id="bubble-container"></div>
+</body>
+</html>
