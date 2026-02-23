@@ -335,7 +335,13 @@ nav {
     font-size: 1.3rem;
     width: 100%; /* Force header to full width */
 }
-
+.category-header span {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    /* ADD THIS: */
+    text-align: left;
+}
 /* Hide by default */
 .category-content {
     max-height: 0;           /* Part of a smooth transition */
@@ -377,8 +383,20 @@ nav {
     width: 100%;
     display: block; /* Ensures it takes up the full line */
 }
-.item { display: flex; justify-content: space-between; padding: 8px 0; font-size: 1rem; }
-.item span:last-child { font-family: 'Montserrat', sans-serif; font-weight: bold; }
+.item { 
+    display: flex; 
+    justify-content: space-between; /* Keeps Name on left, Price on right */
+    padding: 8px 0; 
+    font-size: 1rem; 
+    /* ADD THIS: */
+    text-align: left; 
+    width: 100%;
+}
+.item span:last-child { 
+    font-family: 'Montserrat', sans-serif; 
+    font-weight: bold; 
+    text-align: right; 
+}
 
 /* --- 7. GALLERY & EVENTS GRIDS --- */
 .section-subtitle {
