@@ -110,13 +110,12 @@ if (tickerItems.length > 0) {
     let touchStartX = 0;
     let touchEndX = 0;
 
-    const tickerImages = document.querySelector('.ticker-images');
-    tickerImages.addEventListener('touchstart', e => {
-        touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
+    const tickerContainer = document.querySelector('.ticker-container');
+    tickerContainer.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;}, { passive: true });
 
-    tickerImages.addEventListener('touchend', e => {
-        touchEndX = e.changedTouches[0].screenX;
+    tickerContainer.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
         const threshold = 50;
         if (touchEndX < touchStartX - threshold && currentIndex < tickerItems.length - 1) {
             goToSlide(currentIndex + 1); // Swipe Left
